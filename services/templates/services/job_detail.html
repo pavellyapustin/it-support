@@ -1,0 +1,22 @@
+{% extends "services/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.technician.profile.image.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{% url 'technician-jobs' object.technician.username %}">
+          {{ object.technician.first_name }} {{ object.technician.last_name }}
+        </a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if object.technician == user %}
+          <div class="btn-group btn-group-sm mt-1 mb-1" role="group" aria-label="Basic outlined example">
+            <a class="btn btn-secondary" href="{% url 'job-update' object.id %}">Update</a>
+            <a class="btn btn-danger" href="{% url 'job-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.title }}</h2>
+      <p class="article-content">{{ object.content }}</p>
+    </div>
+  </article>
+{% endblock content %}
