@@ -37,12 +37,12 @@ $ python manage.py runserver
 
 Main screen
 
-![Alt text](print_screens/01.png)
+![Alt text](print_screens/01.PNG)
 
 Login
 
-![Alt text](print_screens/02.png)
+![Alt text](print_screens/02.PNG)
 
 Profile
 
-![Alt text](print_screens/03.png)
+![Alt text](print_screens/03.PNG)
