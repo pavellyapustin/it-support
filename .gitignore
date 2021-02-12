@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+.env/
+__pycache__/
+profile_pics/
+
+default_old.jpg
+db.sqlite3
