@@ -5,10 +5,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Job
 
 
-def home(request):
-    context = { 'jobs': Job.objects.all() }
-    return render(request, 'services/home.html', context)
-
 class JobListView(ListView):
     model = Job
     template_name = 'services/home.html'
@@ -26,6 +22,35 @@ class UserJobListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Job.objects.filter(technician=user).order_by('-date_posted')
+
+
+class TitleJobListView(ListView):
+    model = Job
+    template_name = 'services/home.html'
+    context_object_name = 'jobs'
+    paginate_by = 5
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            title = self.request.GET.get('title', None)
+            if title is not None:
+                queryset = Job.objects.filter(title__contains=title).order_by('-date_posted')
+                return queryset
+
+
+class PeriodJobListView(ListView):
+    model = Job
+    template_name = 'services/home.html'
+    context_object_name = 'jobs'
+    paginate_by = 5
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            start_date = self.request.GET.get('startDate', None)
+            end_date = self.request.GET.get('endDate', None)
+            if start_date is not None and end_date is not None:
+                queryset = Job.objects.filter(date_posted__range=[start_date, end_date]).order_by('-date_posted')
+                return queryset
 
 
 class JobDetailView(DetailView):
